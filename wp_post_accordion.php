@@ -42,6 +42,8 @@ class WP_Post_Accordion extends WP_Widget
 			$id_selector = esc_attr( $instance[ 'id_selector' ] );
 			$class_selector = esc_attr( $instance[ 'class_selector' ] );
 			$active_slide = esc_attr($instance['active_slide']);
+			$slide_interval = esc_attr($instance['slide_interval']);
+			$auto_start = esc_attr($instance['auto_start']);
 
 		}
 		
@@ -51,8 +53,12 @@ class WP_Post_Accordion extends WP_Widget
 			$id_selector = "";
 			$class_selector = "default-accordion";
 			$active_slide = "1";
+			$auto_start = "";
+			$slide_interval = 3000;
 		}
 		
+		
+		$auto_start = ($auto_start == "on") ? "checked" : "";
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label> 
@@ -78,6 +84,23 @@ class WP_Post_Accordion extends WP_Widget
 		<label for="<?php echo $this->get_field_id('active_slide'); ?>"><?php _e('Active Slide:'); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id('active_slide'); ?>" name="<?php echo $this->get_field_name('active_slide'); ?>" type="text" value="<?php echo $active_slide; ?>" />
 		</p>
+
+		<?php
+
+	
+		?>
+		
+		<p>
+		<label for="<?php echo $this->get_field_id('auto_start'); ?>"><?php _e('Auto Start:'); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id('auto_start'); ?>" name="<?php echo $this->get_field_name('auto_start'); ?>" type="checkbox" <?php echo $auto_start; ?>/>
+		</p>
+				
+		<p>
+		<label for="<?php echo $this->get_field_id('slide_interval'); ?>"><?php _e('Slide Interval:'); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id('slide_interval'); ?>" name="<?php echo $this->get_field_name('slide_interval'); ?>" type="text" value="<?php echo $slide_interval; ?>" />
+		</p>
+		
+			
 		<?php 
 	}
 	
@@ -90,6 +113,8 @@ class WP_Post_Accordion extends WP_Widget
 		$instance['id_selector'] = strip_tags($new_instance['id_selector']);
 		$instance['class_selector'] = strip_tags($new_instance['class_selector']);
 		$instance['active_slide'] = (int)$new_instance['active_slide'];
+		$instance['auto_start'] = $new_instance['auto_start'];
+		$instance['slide_interval'] = (int)$new_instance['slide_interval'];
 		return $instance;
 	}
 
@@ -125,13 +150,18 @@ class WP_Post_Accordion extends WP_Widget
 		endwhile;
 
 		wp_reset_query();
+		
+		
+
+		$auto_start = ($instance['auto_start'] == "") ? 'false' : 'true';
 
 		echo "<script type='text/JavaScript'> 
 		jQuery(document).ready(function () {
 
 
 			jQuery('#".$id_selector."').easyAccordion({ 
-					autoStart: false, 
+					autoStart: $auto_start, 
+					slideInterval: {$instance['slide_interval']},
 					slideNum: false
 			});
 		});
