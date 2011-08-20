@@ -1,0 +1,3 @@
+There are styles included for the predefined class `default-accordion` - if the default style fits your theme, GREAT! If the default style does not fit your theme, when you add the widget you can define your own class selector, then define your own custom styles in your theme style.css file. As an example for the style sheet, have a look at the `default-accordion` class in this plugins style.css file.
+
+You can use the `Query String` to modify which posts are shown in the accordion. For more information on how to use the query string see the documentation here: http://codex.wordpress.org/Function_Reference/query_posts
