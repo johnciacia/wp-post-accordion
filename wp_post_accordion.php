@@ -41,6 +41,7 @@ class WP_Post_Accordion extends WP_Widget
 			$query_string = esc_attr( $instance[ 'query_string' ] );
 			$id_selector = esc_attr( $instance[ 'id_selector' ] );
 			$class_selector = esc_attr( $instance[ 'class_selector' ] );
+			$active_slide = esc_attr($instance['active_slide']);
 
 		}
 		
@@ -49,6 +50,7 @@ class WP_Post_Accordion extends WP_Widget
 			$query_string = "posts_per_page=5";
 			$id_selector = "";
 			$class_selector = "default-accordion";
+			$active_slide = "1";
 		}
 		
 		?>
@@ -66,11 +68,15 @@ class WP_Post_Accordion extends WP_Widget
 		<label for="<?php echo $this->get_field_id('class_selector'); ?>"><?php _e('CSS Class Selector:'); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id('class_selector'); ?>" name="<?php echo $this->get_field_name('class_selector'); ?>" type="text" value="<?php echo $class_selector; ?>" />
 		</p>
-		
-						
+								
 		<p>
 		<label for="<?php echo $this->get_field_id('query_string'); ?>"><?php _e('Query String:'); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id('query_string'); ?>" name="<?php echo $this->get_field_name('query_string'); ?>" type="text" value="<?php echo $query_string; ?>" />
+		</p>
+		
+		<p>
+		<label for="<?php echo $this->get_field_id('active_slide'); ?>"><?php _e('Active Slide:'); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id('active_slide'); ?>" name="<?php echo $this->get_field_name('active_slide'); ?>" type="text" value="<?php echo $active_slide; ?>" />
 		</p>
 		<?php 
 	}
@@ -83,6 +89,7 @@ class WP_Post_Accordion extends WP_Widget
 		$instance['query_string'] = strip_tags($new_instance['query_string']);
 		$instance['id_selector'] = strip_tags($new_instance['id_selector']);
 		$instance['class_selector'] = strip_tags($new_instance['class_selector']);
+		$instance['active_slide'] = (int)$new_instance['active_slide'];
 		return $instance;
 	}
 
@@ -90,24 +97,31 @@ class WP_Post_Accordion extends WP_Widget
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		$id_selector = ($instance['id_selector'] == "") ? time() : $instance['id_selector'];
+		$active_slide = ($instance['active_slide'] == "" || $instance['active_slide'] < 1) ? 1 : $instance['active_slide'];
 		
 		echo $before_widget;
 		if ( $title )
 			echo $before_title . $title . $after_title;
 
-
 		query_posts($instance['query_string']);
 		echo '<div id="'.$id_selector.'" class="'.$instance['class_selector'].'">';
 		echo '<dl class="wp-post-accordion">';
 
+		$i = 1;
 		while ( have_posts() ) : the_post();
-			echo '<dt>';
+			if($i == $active_slide) {
+				echo '<dt class="active">';
+			} else {
+				echo '<dt>';
+			}
+			
 			the_title();
 			echo '</dt>';
 			
 			echo '<dd>';
 			echo the_content();
 			echo '</dd>';
+			$i++;
 		endwhile;
 
 		wp_reset_query();
