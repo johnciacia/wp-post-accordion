@@ -47,7 +47,7 @@ class WP_Post_Accordion extends WP_Widget
 		else {
 			$title = "";
 			$query_string = "posts_per_page=5";
-			$id_selector = "accordion-1";
+			$id_selector = "";
 			$class_selector = "default-accordion";
 		}
 		
