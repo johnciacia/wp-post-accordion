@@ -176,9 +176,9 @@ class WP_Post_Accordion extends WP_Widget
 
 function onnolia_accordion_init() {
 	wp_enqueue_script('wp-post-accordion-jquery',
-        WP_PLUGIN_URL . '/wp_post_accordion/jquery.easyAccordion.js', array('jquery', 'jquery-ui-core') );
+        WP_PLUGIN_URL . '/wp-post-accordion/jquery.easyAccordion.js', array('jquery', 'jquery-ui-core') );
 
-	wp_register_style('wp-post-accordion', WP_PLUGIN_URL . '/wp_post_accordion/style.css');
+	wp_register_style('wp-post-accordion', WP_PLUGIN_URL . '/wp-post-accordion/style.css');
 	wp_enqueue_style('wp-post-accordion');
 }
 
