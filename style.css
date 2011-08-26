@@ -1,58 +1,56 @@
-.wp-post-accordion{display:block;position:relative;overflow:hidden;padding:0;margin:0}
-.wp-post-accordion dt,.wp-post-accordion dd{margin:0;padding:0}
-.wp-post-accordion dt,.wp-post-accordion dd{position:absolute}
-.wp-post-accordion dt{margin-bottom:0;margin-left:0;z-index:5;/* Safari */ -webkit-transform: rotate(-90deg); /* Firefox */ -moz-transform: rotate(-90deg);-moz-transform-origin: 20px 0px;  /* Internet Explorer */ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);cursor:pointer;}
-.wp-post-accordion dd{z-index:1;opacity:0;overflow:hidden}
-.wp-post-accordion dd.active{opacity:1;}
-.wp-post-accordion dd.no-more-active{z-index:2;opacity:1}
-.wp-post-accordion dd.active{z-index:3}
-.wp-post-accordion dd.plus{z-index:4}
-.wp-post-accordion .slide-number{position:absolute;bottom:0;left:10px;font-weight:normal;font-size:1.1em;/* Safari */ -webkit-transform: rotate(90deg); /* Firefox */ -moz-transform: rotate(90deg);  /* Internet Explorer */ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);}
-	 	
-.default-accordion {
-	width:850px;
-	height:275px;
-	padding:15px;
-	margin: 40px;
+.accordion { text-align: left; font: 'Helvetica Neue', Verdana, Arial, sans-serif; }
+.accordion ol { position: relative; overflow: hidden; height: 100%; margin: 0; padding: 0; list-style-type: none; }
+.accordion li > h2 { color: black; font-weight: normal; margin: 0; z-index: 2; position: absolute; top: 0; left: 0; -webkit-transform: translateX(-100%) rotate(-90deg); -webkit-transform-origin: right top; -moz-transform: translateX(-100%) rotate(-90deg); -moz-transform-origin: right top; 
+	-o-transform: translateX(-100%) rotate(-90deg); -o-transform-origin: right top; -ms-transform: translateX(-100%) rotate(-90deg); -ms-transform-origin: right top; transform: translateX(-100%) rotate(-90deg); transform-origin: right top; filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); }
+.accordion li > h2 span { display: block; padding-right: 8%; text-align: right; height: 90%; margin-top: 5px; }
+.accordion li > h2 b { display: inline-block; position: absolute; top: 10%; top: 42%\9; left: 10%; left: 5%\9; text-align: center; -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -o-transform: rotate(90deg); transform: rotate(90deg); filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1); }
+.accordion li > h2:hover { cursor: pointer; }
+.accordion li > div { height: 100%; position: absolute; top: 0; z-index: 1; overflow: hidden; background: white; }
+.accordion noscript p { padding: 10px; margin: 0; background: white; }
+
+/****************************************** Basic */
+.basic li > h2 { background: #333; color: white; line-height: 1.8em; }
+.basic li > div h3 { margin: 15px 10px; }
+.basic li > div p { margin: 10px; font-size: 14px; }
+
+/****************************************** Dark */
+
+.default-accordion { 
+	border-bottom-width: 8px; 
+	padding: 5px 5px 6px 0; 
+	margin: 47px 40px 0;
 }
 
-.default-accordion dl {
-	width:850px;
-	margin: 5px;
-	height:275px
+.default-accordion li > h2 { 
+	background: #d4d4d4; 
+	font-size: 16px; 
+	line-height: 2.7em; 
 }
 
-.default-accordion dt {
-	height:46px;
-	line-height:44px;
-	text-align:right;
-	padding:0 15px 0 0;
-	text-transform:uppercase;
-	letter-spacing:1px;
-	background:#FFF;
+.default-accordion li > h2 span { 
+	background: #fafafa; 
+	color: #474747;
 }
 
-.default-accordion dt.active {
-	cursor:pointer;
-	color:#fff;
-	background:#333;
+.default-accordion li > h2 b { background: #353535\9; color: #030303; font-size: 20px; }
+.default-accordion h2.selected span, .dark h2.selected span:hover { 
+	background: #3a3b3c; 
+	background: -webkit-gradient(linear, left top, right top, color-stop(0, #3a3b3c), color-stop(1, #020202)); 
+	background: -moz-linear-gradient(top left, #3a3b3c 0%, #020202 100%);
+	color: #fff;
 }
 
-.default-accordion dt.hover {
-	color:#68889b;
+.default-accordion h2.selected b { background: #434343\9; }
+.default-accordion li > div { 
+	background: #fff; 
+	margin-left: 5px;
+	padding: 10px;
 }
 
-.default-accordion dt.active.hover {
-	color:#fff;
+.default-accordion li > div > div { 
+	margin: 10px;
 }
 
-.default-accordion dd {
-	padding:25px;
-	background:#fff;
-	border-left:0;
-	margin-right:3px;
-}
 
-.default-accordion h2 {
-	font-size:2.5em;margin-top:10px;
-}
+.rounded { -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; }
+.rounded li > h2 span { -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }

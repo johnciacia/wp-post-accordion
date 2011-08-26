@@ -129,40 +129,44 @@ class WP_Post_Accordion extends WP_Widget
 			echo $before_title . $title . $after_title;
 
 		query_posts($instance['query_string']);
-		echo '<div id="'.$id_selector.'" class="'.$instance['class_selector'].'">';
-		echo '<dl class="wp-post-accordion">';
 
-		$i = 1;
+		echo '<div id="'.$id_selector.'" class="accordion '.$instance['class_selector'].'">';
+		echo '<ol>';
+
+
 		while ( have_posts() ) : the_post();
-			if($i == $active_slide) {
-				echo '<dt class="active">';
-			} else {
-				echo '<dt>';
-			}
+			echo '<li>';
 			
-			the_title();
-			echo '</dt>';
+			echo'<h2><span>' . get_the_title() . '</span></h2>';
 			
-			echo '<dd>';
-			echo the_content();
-			echo '</dd>';
-			$i++;
+			echo '<div><div>' . get_the_content() . '</div></div>';
+			
+			echo '</li>';
 		endwhile;
-
-		wp_reset_query();
 		
+		echo '</ol>';
+		echo '</div>';
+		
+		wp_reset_query();		
+
 		
 
 		$auto_start = ($instance['auto_start'] == "") ? 'false' : 'true';
 
 		echo "<script type='text/JavaScript'> 
-		jQuery(document).ready(function () {
-
-
-			jQuery('#".$id_selector."').easyAccordion({ 
-					autoStart: $auto_start, 
-					slideInterval: {$instance['slide_interval']},
-					slideNum: false
+		jQuery(document).ready(function () {		
+			jQuery('#".$id_selector."').liteAccordion({
+				containerWidth : 898,
+				containerHeight : 286,
+				headerWidth : 48,
+				firstSlide : $active_slide,
+				slideSpeed : 800,
+				autoPlay : $auto_start,
+				pauseOnHover : false,
+				cycleSpeed : {$instance['slide_interval']},
+				//theme : 'basic',
+				rounded : false,
+				enumerateSlides : false   		
 			});
 		});
 		</script>";		
@@ -176,7 +180,7 @@ class WP_Post_Accordion extends WP_Widget
 
 function onnolia_accordion_init() {
 	wp_enqueue_script('wp-post-accordion-jquery',
-        WP_PLUGIN_URL . '/wp-post-accordion/jquery.easyAccordion.js', array('jquery', 'jquery-ui-core') );
+        WP_PLUGIN_URL . '/wp-post-accordion/liteaccordion.jquery.js', array('jquery', 'jquery-ui-core') );
 
 	wp_register_style('wp-post-accordion', WP_PLUGIN_URL . '/wp-post-accordion/style.css');
 	wp_enqueue_style('wp-post-accordion');
